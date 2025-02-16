@@ -1,0 +1,27 @@
+# Load necessary library
+library(ggplot2)
+
+# Define the Lennard-Jones potential function
+lennard_jones_potential <- function(r, epsilon = 1.0, sigma = 1.0) {
+  4 * epsilon * ((sigma / r)^12 - (sigma / r)^6)
+}
+
+# Generate distance values
+r <- seq(0.9, 3, by = 0.01)
+
+# Calculate potential values
+V <- lennard_jones_potential(r)
+
+# Create a data frame for plotting
+data <- data.frame(Distance = r, Potential = V)
+
+# Plot the Lennard-Jones potential
+ggplot(data, aes(x = Distance, y = Potential)) +
+  geom_line(color = "blue") +
+  geom_hline(yintercept = 0, color = "black", linetype = "dashed") +
+  geom_vline(xintercept = 1.0, color = "red", linetype = "dashed") +
+  labs(title = "Lennard-Jones Potential for Nanosize Particle Interaction",
+       x = "Distance (r)",
+       y = "Potential Energy (V)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
